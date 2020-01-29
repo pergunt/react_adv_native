@@ -6,7 +6,7 @@ import EventLit from './event/EventLit';
 
 function Root() {
     return (
-        <View >
+        <View style={styles.container}>
           <EventLit />
         </View>
     );
@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     marginTop: 15
+  },
+  container: {
+    padding: 5
   }
 });
 export default Root

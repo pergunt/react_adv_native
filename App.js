@@ -3,12 +3,12 @@ import { StyleSheet, View } from 'react-native';
 
 import Root from './components/Root'
 
+import 'react-native-gesture-handler';
+
+import AppNavigator from './AppNavigator'
+
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Root />
-    </View>
-  );
+  return <AppNavigator />
 }
 
 const styles = StyleSheet.create({

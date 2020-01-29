@@ -7,8 +7,8 @@ import AuthScreen from './screens/AuthScreen';
 
 const MainNavigator = createStackNavigator({
   eventList: {screen: EventListScreen},
-  event: {screen: EventScreen},
   auth: {screen: AuthScreen},
+  event: {screen: EventScreen},
 });
 
 const App = createAppContainer(MainNavigator);

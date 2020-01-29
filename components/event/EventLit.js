@@ -7,17 +7,15 @@ import {
   SectionList
 } from 'react-native';
 import EventCard from './EventCard';
-import {eventList} from '../fixtures'
 
 import _ from 'lodash';
 
-const grouped = _.groupBy(eventList, event => event.title.charAt(0));
-const sections = Object.entries(grouped).map( ([letter, data]) => ({
-  title: `${letter} ${data.length} events`,
-  data
-}));
-
-function EventList({onEventPress}) {
+function EventList({onEventPress, events}) {
+  const grouped = _.groupBy(events, event => event.title.charAt(0));
+  const sections = Object.entries(grouped).map( ([letter, data]) => ({
+    title: `${letter} ${data.length} events`,
+    data
+  }));
   return (
     <SectionList
       sections={sections}

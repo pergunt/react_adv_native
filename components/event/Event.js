@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
   View,
   Text,
-  TextInput,
+  Button,
   StyleSheet,
   Platform,
   Image
@@ -11,7 +11,10 @@ import {
 
 import {eventList} from '../fixtures';
 
+import ConfirmModal from '../common/ConfirmModal'
+
 function Event() {
+  const [modalIsVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <Text style={{...styles.text, ...styles.header}}>
@@ -29,6 +32,17 @@ function Event() {
           {eventList[0].url}
         </Text>
       </View>
+      <Button
+        title='Delete'
+        onPress={() => setModalVisible(!modalIsVisible)}
+      />
+      <ConfirmModal
+        visible={modalIsVisible}
+        onConfirm={() => setModalVisible(!modalIsVisible)}
+        onCancel={() => setModalVisible(!modalIsVisible)}
+      >
+        Are you sure you want to delete this item?
+      </ConfirmModal>
     </View>
   );
 }

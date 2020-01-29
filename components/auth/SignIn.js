@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {
   View,
@@ -7,19 +7,25 @@ import {
   StyleSheet,
   Platform,
   TouchableOpacity
-} from 'react-native'
+} from 'react-native';
 
-function SignIn() {
-  const [auth, onInputChange] = useState({email: '', password: ''});
+import firebase from 'firebase';
+
+import {observer, inject} from 'mobx-react'
+
+function SignIn({navigation, user}) {
   const handleInputChange = (field) => (value) => {
-    onInputChange({
-      ...auth,
-      [field]: value
-    })
+    user[field] = value;
   };
   const handleOnPress = () => {
-
-  }
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(user.email, user.password)
+      .then((user) => {
+        user.user = user;
+        navigation.navigate('eventList');
+      })
+  };
   return (
     <View>
       <Text style={styles.header}>
@@ -30,7 +36,7 @@ function SignIn() {
       </Text>
       <TextInput
         style={styles.input}
-        value={auth.email}
+        value={userStore.email}
         onChangeText={handleInputChange('email')}
         keyboardType='email-address'
       />
@@ -39,7 +45,7 @@ function SignIn() {
       </Text>
       <TextInput
         style={styles.input}
-        value={auth.password}
+        value={userStore.password}
         onChangeText={handleInputChange('password')}
         secureTextEntry
       />
@@ -51,7 +57,7 @@ function SignIn() {
     </View>
   );
 }
-export default SignIn;
+export default inject( stores => ({user: stores.user}))(observer(SignIn));
 
 const styles = StyleSheet.create({
   header: {

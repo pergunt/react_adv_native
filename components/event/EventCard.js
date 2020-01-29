@@ -11,34 +11,21 @@ import {
 } from 'react-native';
 
 import Card from '../common/Card'
-import ConfirmModal from '../common/ConfirmModal'
 
 function EventCard({event}) {
-  const [modalIsVisible, setModalVisible] = useState(false);
   return (
     <Card style={styles.container}>
       <Image style={styles.image} source={{uri: 'http://lorempixel.com/400/200/'}} />
       <View style={styles.description}>
         <Text>{event.month}</Text>
         <Text>{event.url}</Text>
-        <Button
-          title='Delete'
-          onPress={() => setModalVisible(!modalIsVisible)}
-        />
       </View>
-      <ConfirmModal
-        visible={modalIsVisible}
-        onConfirm={() => setModalVisible(!modalIsVisible)}
-        onCancel={() => setModalVisible(!modalIsVisible)}
-      >
-        Are you sure you want to delete this item?
-      </ConfirmModal>
     </Card>
   );
 }
 const styles = StyleSheet.create({
   image: {
-    width: 200,
+    width: 100,
     height: 50
   },
   container: {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, {useEffect} from 'react';
+import { StyleSheet } from 'react-native';
 
 import './initFB';
 
@@ -11,6 +11,11 @@ import {Provider} from 'mobx-react';
 import stores from './stores';
 
 export default function App() {
+  useEffect(() => {
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
+  }, []);
   return (
     <Provider {...stores}>
       <AppNavigator />

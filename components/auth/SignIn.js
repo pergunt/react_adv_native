@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 
 import firebase from 'firebase';
-
 import {observer, inject} from 'mobx-react'
+
+import { StackActions, CommonActions  } from '@react-navigation/native';
 
 function SignIn({navigation, user}) {
   const handleInputChange = (field) => (value) => {
@@ -23,7 +24,13 @@ function SignIn({navigation, user}) {
       .signInWithEmailAndPassword(user.email, user.password)
       .then((user) => {
         user.user = user;
-        navigation.navigate('eventList');
+        const action = CommonActions.reset({
+          index: 0,
+          routes: [{
+            name: 'lists'
+          }]
+        });
+        navigation.dispatch(action);
       })
   };
   return (
@@ -36,7 +43,7 @@ function SignIn({navigation, user}) {
       </Text>
       <TextInput
         style={styles.input}
-        value={userStore.email}
+        value={user.email}
         onChangeText={handleInputChange('email')}
         keyboardType='email-address'
       />
@@ -45,7 +52,7 @@ function SignIn({navigation, user}) {
       </Text>
       <TextInput
         style={styles.input}
-        value={userStore.password}
+        value={user.password}
         onChangeText={handleInputChange('password')}
         secureTextEntry
       />
@@ -57,6 +64,7 @@ function SignIn({navigation, user}) {
     </View>
   );
 }
+
 export default inject( stores => ({user: stores.user}))(observer(SignIn));
 
 const styles = StyleSheet.create({

@@ -1,29 +1,8 @@
+import {observable, computed, action} from 'mobx';
 
-import {observable, computed} from 'mobx';
-import {data} from '../components/fixtures';
+import EntitiesStore, {loadAllHelper} from './EntitiesStore'
 
-import {entitiesFromFB} from './utils';
-
-import firebase from 'firebase'
-
-class Events {
-  @observable entities = {};
-  @observable loading = false;
-
-  @computed get list() {
-    return Object.values(this.entities);
-  }
-  @computed get length() {
-    return Object.keys(this.entities).length;
-  }
-
-  loadAll() {
-    this.loading = true;
-    firebase.database().ref('events')
-      .on('value', data => {
-        this.entities = entitiesFromFB(data.val());
-        this.loading = false;
-      })
-  }
+class Events extends EntitiesStore {
+  @action loadAll = loadAllHelper('events')
 }
 export default Events;

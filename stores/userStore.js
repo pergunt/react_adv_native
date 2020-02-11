@@ -1,6 +1,7 @@
 import {observable} from 'mobx'
+import BaseStore from './BaseStore'
 
-class User {
+class User extends BaseStore {
   @observable
   email = '';
   @observable

@@ -11,6 +11,7 @@ function EventListScreen({navigation, event}) {
     event.loadAll();
   }, []);
   const handleEventPress = (uid) => () => {
+    console.log(uid);
     navigation.navigate('event', {uid});
   };
   if (event.loading) {

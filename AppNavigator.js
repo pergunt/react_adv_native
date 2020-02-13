@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import EventListScreen from './screens/events/EventListSreen';
 import EventScreen from './screens/events/EventScreen';
 import AuthScreen from './screens/AuthScreen';
-import People from './screens/People';
+import People from './screens/people/People';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -27,7 +27,11 @@ function MainNavigator() {
       <Stack.Screen name="lists" component={Tabs} />
       <Stack.Screen name="eventList" component={EventListScreen} />
       <Stack.Screen name="auth" component={AuthScreen} />
-      <Stack.Screen name="event" component={EventScreen} />
+      <Stack.Screen
+        name="event"
+        component={EventScreen}
+        options={({ route }) => ({title: `Event ${route.params.uid}`})}
+      />
     </Stack.Navigator>
   )
 }

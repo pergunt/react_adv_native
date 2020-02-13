@@ -1,59 +1,70 @@
-import React, {useState} from 'react';
+import React, {useState, Fragment} from 'react';
 
 import {
   View,
   Text,
   Button,
   StyleSheet,
-  Platform,
+  TouchableOpacity,
   Image
 } from 'react-native'
 
-import {eventList} from '../fixtures';
+import {observer} from 'mobx-react';
+
+import {web} from 'react-native-communications';
 
 import ConfirmModal from '../common/ConfirmModal'
 
-function Event() {
+function Event({event}) {
   const [modalIsVisible, setModalVisible] = useState(false);
+  const confirmDelete = () => {
+    event.month = 'LaaaLLLLooo';
+    // setModalVisible(!modalIsVisible);
+
+  };
+  const cancelDelete = () => {
+    setModalVisible(!modalIsVisible);
+  };
+  const goToURL = () => {
+    web(event.url);
+  };
+  console.log('Event');
+  const {title, when, where, url} = event;
   return (
-    <View style={styles.container}>
+    <Fragment>
       <Text style={{...styles.text, ...styles.header}}>
-        {eventList[0].title}
+        {title}
       </Text>
       <View>
         <Image style={styles.image} source={{uri: 'http://lorempixel.com/400/200/'}} />
         <Text style={styles.text}>
-          {eventList[0].when}
+          {when}
         </Text>
         <Text style={styles.text}>
-          {eventList[0].where}
+          {where}
         </Text>
-        <Text style={styles.text}>
-          {eventList[0].url}
-        </Text>
+        <TouchableOpacity onPress={goToURL}>
+          <Text style={styles.text}>
+            {url}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Button
         title='Delete'
-        onPress={() => setModalVisible(!modalIsVisible)}
+        onPress={confirmDelete}
       />
       <ConfirmModal
         visible={modalIsVisible}
-        onConfirm={() => setModalVisible(!modalIsVisible)}
-        onCancel={() => setModalVisible(!modalIsVisible)}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
       >
         Are you sure you want to delete this item?
       </ConfirmModal>
-    </View>
+    </Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 15,
-    height: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
   text: {
     height: 100,
     width: '100%',
@@ -70,4 +81,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Event
+export default observer(Event)

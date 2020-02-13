@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {observer, inject} from 'mobx-react'
 import {View, StyleSheet, ActivityIndicator} from 'react-native'
-import PeopleList from '../components/people/PeopleList'
+import PeopleList from '../../components/people/PeopleList'
+
+import {text, email} from 'react-native-communications';
 
 @inject('people')
 @observer
@@ -20,16 +22,18 @@ class PeopleListScreen extends Component {
   }
 
   render() {
-    const {people} = this.props
-    if (people.loading) return this.getLoader()
+    const {people} = this.props;
+    if (people.loading) return this.getLoader();
     return <PeopleList onPersonPress = {this.handlePress} onLongPress = {this.handleLongPress}/>
   }
 
   getLoader() {
-    return <View><ActivityIndicator size='large'/></View>
+    return <ActivityIndicator size='large'/>
   }
   handlePress = uid => {
-    this.props.people.entities[uid].email = 'lalalalal';
+    // text('+123456789', 'event notification');
+    console.log(this.props.people.entities[uid].email)
+    email()
   }
 
   handleLongPress = uid => {

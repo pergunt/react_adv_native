@@ -15,12 +15,11 @@ import {web} from 'react-native-communications';
 
 import ConfirmModal from '../common/ConfirmModal'
 
-function Event({event}) {
+function Event({event, navigation}) {
   const [modalIsVisible, setModalVisible] = useState(false);
   const confirmDelete = () => {
     event.month = 'LaaaLLLLooo';
     // setModalVisible(!modalIsVisible);
-
   };
   const cancelDelete = () => {
     setModalVisible(!modalIsVisible);
@@ -28,8 +27,15 @@ function Event({event}) {
   const goToURL = () => {
     web(event.url);
   };
-  console.log('Event');
-  const {title, when, where, url} = event;
+  const goToMap = () => {
+    navigation.navigate('eventMap', {uid: event.uid})
+  };
+  const {
+    title,
+    when,
+    where,
+    url
+  } = event;
   return (
     <Fragment>
       <Text style={{...styles.text, ...styles.header}}>
@@ -48,6 +54,10 @@ function Event({event}) {
             {url}
           </Text>
         </TouchableOpacity>
+        <Button
+          onPress={goToMap}
+          title='Show map'
+        />
       </View>
       <Button
         title='Delete'

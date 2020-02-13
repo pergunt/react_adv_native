@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import EventListScreen from './screens/events/EventListSreen';
 import EventScreen from './screens/events/EventScreen';
+import EventMap from './screens/events/EventMap';
 import AuthScreen from './screens/AuthScreen';
 import People from './screens/people/People';
 
@@ -27,6 +28,7 @@ function MainNavigator() {
       <Stack.Screen name="lists" component={Tabs} />
       <Stack.Screen name="eventList" component={EventListScreen} />
       <Stack.Screen name="auth" component={AuthScreen} />
+      <Stack.Screen name="eventMap" component={EventMap} />
       <Stack.Screen
         name="event"
         component={EventScreen}

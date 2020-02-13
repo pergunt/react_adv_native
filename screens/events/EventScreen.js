@@ -5,13 +5,13 @@ import Event from '../../components/event/Event';
 
 import {inject, observer} from 'mobx-react';
 
-function EventScreen({route, entities}) {
+function EventScreen({route, entities, navigation}) {
   const event = entities[route.params.uid];
 
   return (
     <View style={styles.container}>
       <Text>Month {event.month}</Text>
-      <Event event={event} />
+      <Event event={event} navigation={navigation} />
     </View>
   );
 }

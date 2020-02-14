@@ -27,6 +27,9 @@ function Event({event, navigation}) {
   const goToURL = () => {
     web(event.url);
   };
+  const showCamera = () => {
+    navigation.navigate('eventPhoto', {uid: event.uid});
+  }
   const goToMap = () => {
     navigation.navigate('eventMap', {uid: event.uid})
   };
@@ -41,24 +44,26 @@ function Event({event, navigation}) {
       <Text style={{...styles.text, ...styles.header}}>
         {title}
       </Text>
-      <View>
-        <Image style={styles.image} source={{uri: 'http://lorempixel.com/400/200/'}} />
+      <Image style={styles.image} source={{uri: 'http://lorempixel.com/400/200/'}} />
+      <Text style={styles.text}>
+        {when}
+      </Text>
+      <Text style={styles.text}>
+        {where}
+      </Text>
+      <TouchableOpacity onPress={goToURL}>
         <Text style={styles.text}>
-          {when}
+          {url}
         </Text>
-        <Text style={styles.text}>
-          {where}
-        </Text>
-        <TouchableOpacity onPress={goToURL}>
-          <Text style={styles.text}>
-            {url}
-          </Text>
-        </TouchableOpacity>
-        <Button
-          onPress={goToMap}
-          title='Show map'
-        />
-      </View>
+      </TouchableOpacity>
+      <Button
+        onPress={showCamera}
+        title='Make a picture'
+      />
+      <Button
+        onPress={goToMap}
+        title='Show map'
+      />
       <Button
         title='Delete'
         onPress={confirmDelete}
@@ -88,6 +93,9 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 100
+  },
+  pictureBtn: {
+    marginBottom: 5
   }
 });
 

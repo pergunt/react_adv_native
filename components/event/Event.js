@@ -27,9 +27,6 @@ function Event({event, navigation}) {
   const goToURL = () => {
     web(event.url);
   };
-  const showCamera = () => {
-    navigation.navigate('eventPhoto', {uid: event.uid});
-  }
   const goToMap = () => {
     navigation.navigate('eventMap', {uid: event.uid})
   };

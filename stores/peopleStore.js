@@ -15,5 +15,9 @@ class People extends EntitiesStore {
       data: list.map(person => ({key: person.uid, person}))
     }))
   }
+  @action updatePerson(uid, data) {
+    //todo add loader on camera, add realtime
+    firebase.database().ref(`people/${uid}`).update(data)
+  }
 }
 export default People;

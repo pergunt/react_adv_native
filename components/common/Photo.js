@@ -9,7 +9,7 @@ const cameraDefaultState = {
   autoFocus: 'on'
 };
 
-const EventPhoto = ({route: {params}}) => {
+const Photo = ({base64, getPhoto}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [cameraState, setCameraState] = useState(cameraDefaultState);
@@ -28,9 +28,9 @@ const EventPhoto = ({route: {params}}) => {
     return <Text>Permission denied</Text>;
   }
   const takePicture = () => {
-    camera.current.takePictureAsync()
-      .then(result => {
-        console.log(result);
+    camera.current.takePictureAsync({base64})
+      .then(photo => {
+        getPhoto(photo);
       })
   };
 
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
     marginRight: 20
   }
 });
-export default EventPhoto;
+export default Photo;
